@@ -1,5 +1,7 @@
 
-[springboot jpa 官方教程](https://spring.io/guides/gs/accessing-data-jpa/)
+[accessing-data-jpa](https://spring.io/guides/gs/accessing-data-jpa/)
+
+[spring-data/jpa](https://docs.spring.io/spring-data/jpa/docs/2.5.4/reference/html/#repositories.core-concepts)
 
 #相关参数
 
