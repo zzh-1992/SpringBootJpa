@@ -1,17 +1,16 @@
 package com.grapefruit.springbootjpa;
 
-import com.grapefruit.springbootjpa.dao.ClassDao;
-import com.grapefruit.springbootjpa.dao.StuDao;
+import com.grapefruit.springbootjpa.repository.ClassRepo;
+import com.grapefruit.springbootjpa.repository.StuRepo;
 import com.grapefruit.springbootjpa.entity.Class;
 import com.grapefruit.springbootjpa.entity.Student;
-import com.grapefruit.springbootjpa.repository.StudentInterface;
+import com.grapefruit.springbootjpa.dto.StudentDto;
 import com.grapefruit.springbootjpa.service.StuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,10 +23,17 @@ class SpringbootjpaApplicationTests {
     StuService stuService;
 
     @Autowired
-    StuDao stuDao;
+    StuRepo stuRepo;
 
     @Autowired
-    ClassDao classDao;
+    ClassRepo classRepo;
+
+
+    @Test
+    void findAllNameAndAge() {
+        List<Student> List = stuRepo.findAllNameAndAge();
+        System.out.println();
+    }
 
     @Test
     void contextLoads() {
@@ -38,43 +44,44 @@ class SpringbootjpaApplicationTests {
         Class c3 = Class.builder().cName("class C1").build();
         List<Class> list = Arrays.asList(c1, c2, c3);
 
-        stuDao.save(s1);
-        classDao.saveAll(list);
+        stuRepo.save(s1);
+        classRepo.saveAll(list);
     }
 
     @Test
     void batchSave() {
         for (int i = 6; i < 20; i++) {
             Student s1 = Student.builder().name("aaa").age(i).classId(100 + i).build();
-            stuDao.save(s1);
+            stuRepo.save(s1);
         }
     }
 
     @Test
     void findByName() {
-        List<StudentInterface> iterater = (List<StudentInterface>) stuDao.findByName("aaaaa");
+        //Page<StudentInterface> page = stuDao.findByName("aaaaa");
+        System.out.println();
+    }
+
+    @Test
+    void findAgetAndNameByName0() {
+        List<StudentDto> list = stuRepo.findAgetAndNameByName("aaaaa");
         System.out.println();
     }
 
     @Test
     void findByName2() {
-        Pageable pageable = Pageable.ofSize(5);
-        Page<Student> a1 = stuDao.findByName("a", pageable);
-        List<Student> content = a1.getContent();
-        System.out.println();
-
         // 分页查询
         PageRequest page = PageRequest.of(2, 6);
-        Page<Student> a2 = stuDao.findByName("a", page);
+        Page<Student> a2 = stuRepo.findByName("a", page);
 
         System.out.println();
     }
 
     @Test
-    void findByName3() {
+    void findAgetAndNameByName() {
         // 分页查询
         PageRequest page = PageRequest.of(2, 6);
-        Page<StudentInterface> a2 = stuDao.findByName(page);
+        Page<StudentDto> a2 = stuRepo.findByName(page);
 
         System.out.println();
     }
@@ -82,7 +89,7 @@ class SpringbootjpaApplicationTests {
     @Test
     void findByFirstnameEndsWith() {
 
-        List<Map<String, Object>> list = stuDao.findByNameEndsWith("bcd");
+        List<Map<String, Object>> list = stuRepo.findByNameEndsWith("bcd");
         //Hibernate: select student0_.s_id as s_id1_1_, student0_.age as age2_1_, student0_.class_id as class_id3_1_,
         // student0_.name as name4_1_ from t_student student0_ where student0_.name like ?
         list.forEach(Object::toString);
@@ -91,7 +98,7 @@ class SpringbootjpaApplicationTests {
     @Test
     void findByNameBeginWith() {
 
-        List<Student> list = stuDao.findByNameBeginWith("bcd");
+        List<Student> list = stuRepo.findByNameBeginWith("bcd");
         //Hibernate: select student0_.s_id as s_id1_1_, student0_.age as age2_1_,
         // student0_.class_id as class_id3_1_,
         // student0_.name as name4_1_ from t_student student0_ where student0_.name like ?
@@ -100,7 +107,7 @@ class SpringbootjpaApplicationTests {
 
     @Test
     void findByNameIsLike() {
-        List<Student> list = stuDao.findByNameIsLike("bcd");
+        List<Student> list = stuRepo.findByNameIsLike("bcd");
         //Hibernate: select student0_.s_id as s_id1_1_, student0_.age as age2_1_,
         // student0_.class_id as class_id3_1_, student0_.name as name4_1_ from t_student student0_
         // where student0_.name like ?

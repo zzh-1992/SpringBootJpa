@@ -4,7 +4,7 @@
 
 package com.grapefruit.springbootjpa.service;
 
-import com.grapefruit.springbootjpa.dao.StuDao;
+import com.grapefruit.springbootjpa.repository.StuRepo;
 import com.grapefruit.springbootjpa.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.Map;
 @Service
 public class StuServiceImpl implements StuService {
     @Autowired
-    StuDao stuDao;
+    StuRepo stuRepo;
 
     @Override
     public List<Student> findByName(String name) {
@@ -32,16 +32,16 @@ public class StuServiceImpl implements StuService {
 
     @Override
     public List<Map<String, Object>> findByNameEndsWith(String name) {
-        return stuDao.findByNameEndsWith(name);
+        return stuRepo.findByNameEndsWith(name);
     }
 
     @Override
     public List<Student> findByNameBeginWith(String name) {
-        return stuDao.findByNameBeginWith(name);
+        return stuRepo.findByNameBeginWith(name);
     }
 
     @Override
     public List<Student> findByNameIsLike(String name) {
-        return stuDao.findByNameIsLike(name);
+        return stuRepo.findByNameIsLike(name);
     }
 }

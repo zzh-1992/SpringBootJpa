@@ -4,7 +4,6 @@
 
 package com.grapefruit.springbootjpa.entity;
 
-import com.grapefruit.springbootjpa.repository.StudentInterface;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,13 +29,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Student implements StudentInterface {
-
-    public void Student(String name,int age){
-        this.name = name;
-        this.age = age;
-    }
-
+public class Student {
 
     @Id()
     @Column(name = "s_id")
@@ -48,6 +41,12 @@ public class Student implements StudentInterface {
 
     @Column(name = "name")
     private String name;
+
     @Column(name = "age")
     private int age;
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 }
