@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grapefruit.springbootjpa.dao.PositionMapper">
+  <resultMap id="BaseResultMap" type="com.grapefruit.springbootjpa.entity.TPosition">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="class" jdbcType="VARCHAR" property="class" />
+    <result column="level" jdbcType="SMALLINT" property="level" />
+    <result column="child_score" jdbcType="SMALLINT" property="childScore" />
+    <result column="parent_size" jdbcType="SMALLINT" property="parentSize" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="creat_time" jdbcType="VARCHAR" property="creatTime" />
+    <result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+    <result column="score" jdbcType="SMALLINT" property="score" />
+  </resultMap>
+  <insert id="insert" parameterType="com.grapefruit.springbootjpa.entity.TPosition">
+    insert into t_position (id, `class`, `level`, 
+      child_score, parent_size, creator, 
+      modifier, creat_time, modify_time, 
+      score)
+    values (#{id,jdbcType=INTEGER}, #{class,jdbcType=VARCHAR}, #{level,jdbcType=SMALLINT}, 
+      #{childScore,jdbcType=SMALLINT}, #{parentSize,jdbcType=SMALLINT}, #{creator,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{creatTime,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR}, 
+      #{score,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.grapefruit.springbootjpa.entity.TPosition">
+    insert into t_position
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="class != null">
+        `class`,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="childScore != null">
+        child_score,
+      </if>
+      <if test="parentSize != null">
+        parent_size,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="class != null">
+        #{class,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=SMALLINT},
+      </if>
+      <if test="childScore != null">
+        #{childScore,jdbcType=SMALLINT},
+      </if>
+      <if test="parentSize != null">
+        #{parentSize,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.grapefruit.springbootjpa.entity.TPosition">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="class" jdbcType="VARCHAR" property="class" />
+    <result column="level" jdbcType="SMALLINT" property="level" />
+    <result column="child_score" jdbcType="SMALLINT" property="childScore" />
+    <result column="parent_size" jdbcType="SMALLINT" property="parentSize" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="creat_time" jdbcType="VARCHAR" property="creatTime" />
+    <result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+    <result column="score" jdbcType="SMALLINT" property="score" />
+  </resultMap>
+  <insert id="insert" parameterType="com.grapefruit.springbootjpa.entity.TPosition">
+    insert into t_position (id, `class`, `level`, 
+      child_score, parent_size, creator, 
+      modifier, creat_time, modify_time, 
+      score)
+    values (#{id,jdbcType=INTEGER}, #{class,jdbcType=VARCHAR}, #{level,jdbcType=SMALLINT}, 
+      #{childScore,jdbcType=SMALLINT}, #{parentSize,jdbcType=SMALLINT}, #{creator,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{creatTime,jdbcType=VARCHAR}, #{modifyTime,jdbcType=VARCHAR}, 
+      #{score,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.grapefruit.springbootjpa.entity.TPosition">
+    insert into t_position
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="class != null">
+        `class`,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="childScore != null">
+        child_score,
+      </if>
+      <if test="parentSize != null">
+        parent_size,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="class != null">
+        #{class,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=SMALLINT},
+      </if>
+      <if test="childScore != null">
+        #{childScore,jdbcType=SMALLINT},
+      </if>
+      <if test="parentSize != null">
+        #{parentSize,jdbcType=SMALLINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
