@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "d36dc216-8b3f-4379-acbd-9c7757fe59bc",
+		"name": "Grape",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/getExam",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"positionClass\":\"K\",\n    \"level\":6\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/getExam",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getExam"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/getAllChild",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getAllChild",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getAllChild"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/saveChild",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":1,\n    \"name\":\"语文\",\n    \"score\":11,\n    \"parentId\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/saveChild",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"saveChild"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/saveParent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":1,\n    \"name\":\"GK\",\n    \"link\":\"www.localhost.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/saveParent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"saveParent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/getAllParent",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getAllParent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getAllParent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/saveChildList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"childClass\": [\n        {\n            \"name\":\"语文batch22\",\n            \"score\":11,\n            \"parentId\":1\n        },\n            {\n            \"name\":\"语文batch33\",\n            \"score\":11,\n            \"parentId\":1\n        },\n        {\n            \"name\":\"语文batch11\",\n            \"score\":11,\n            \"parentId\":1\n        }\n    ]\n}\n    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/saveChildList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"saveChildList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8099/deleteParent?id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8099/deleteParent?id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8099",
+					"path": [
+						"deleteParent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
