@@ -1,33 +1,41 @@
 package com.grapefruit.springbootjpa;
 
-import com.grapefruit.springbootjpa.repository.ClassRepo;
-import com.grapefruit.springbootjpa.repository.StuRepo;
+import com.alibaba.fastjson.JSON;
+import com.grapefruit.springbootjpa.dto.StudentDto;
 import com.grapefruit.springbootjpa.entity.Class;
 import com.grapefruit.springbootjpa.entity.Student;
-import com.grapefruit.springbootjpa.dto.StudentDto;
+import com.grapefruit.springbootjpa.repository.ClassRepo;
+import com.grapefruit.springbootjpa.repository.StuRepo;
 import com.grapefruit.springbootjpa.service.StuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
 class SpringbootjpaApplicationTests {
 
+    private static final int BATCH_SIZE = 3;
     @Autowired
     StuService stuService;
-
     @Autowired
     StuRepo stuRepo;
-
     @Autowired
     ClassRepo classRepo;
-
+    // use EntityManager
+    @Autowired
+    EntityManager entityManager;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Test
     void findAllNameAndAge() {
@@ -39,13 +47,75 @@ class SpringbootjpaApplicationTests {
     void contextLoads() {
         Student s1 = Student.builder().name("aaa").age(2).classId(101).build();
 
-        Class c1 = Class.builder().cName("class A1").build();
-        Class c2 = Class.builder().cName("class B1").build();
-        Class c3 = Class.builder().cName("class C1").build();
+        Class c1 = Class.builder().cName("class A7").build();
+        Class c2 = Class.builder().cName("class B8").build();
+        Class c3 = Class.builder().cName("class C9").build();
         List<Class> list = Arrays.asList(c1, c2, c3);
 
-        stuRepo.save(s1);
+        //stuRepo.save(s1);
         classRepo.saveAll(list);
+    }
+
+    @Transactional
+    @Test
+    void contextLoadsByEntityManager() {
+        Class c1 = Class.builder().cName("class G1=======").build();
+        Class c2 = Class.builder().cName("class G2").build();
+        Class c3 = Class.builder().cName("class G3").build();
+        Class c4 = Class.builder().cName("class G4").build();
+        Class c5 = Class.builder().cName("class G5").build();
+        Class c6 = Class.builder().cName("class G6").build();
+        Class c7 = Class.builder().cName("class G7").build();
+        List<Class> list = Arrays.asList(c1, c2, c3, c4, c5, c6, c7);
+
+        Iterator<Class> iterator = list.iterator();
+
+        int index = 0;
+        while (iterator.hasNext()) {
+            entityManager.persist(iterator.next());
+            index++;
+            if (index % BATCH_SIZE == 0) {
+                entityManager.flush();
+                entityManager.clear();
+            }
+        }
+        if (index % BATCH_SIZE != 0) {
+            entityManager.flush();
+            entityManager.clear();
+        }
+    }
+
+    @Transactional
+    @Test
+    void batchSaveWithJDBC() {
+        Class c1 = Class.builder().cName("class G1=======").build();
+        Class c2 = Class.builder().cName("class G2").build();
+        Class c3 = Class.builder().cName("class G3").build();
+        Class c4 = Class.builder().cName("class G4").build();
+        Class c5 = Class.builder().cName("class G5").build();
+        Class c6 = Class.builder().cName("class G6").build();
+        Class c7 = Class.builder().cName("class G7").build();
+        List<Class> list = Arrays.asList(c1, c2, c3, c4, c5, c6, c7);
+
+        StringBuilder insert = new StringBuilder("INSERT INTO `t_class` (`c_name`) VALUES ");
+
+        for (int i = 0; i < list.size(); i++) {
+            insert.append("(")
+                    .append("'")
+                    .append(list.get(i).getCName())
+                    .append("'")
+                    .append(")");
+            if (i < list.size() - 1) {
+                insert.append(",");
+            }
+        }
+        String sql = (String) JSON.toJSON(insert);
+        System.out.println("SQL语句:{}" + JSON.toJSON(insert));
+        try {
+            jdbcTemplate.execute(sql);
+        } catch (Exception e) {
+            System.out.println("sql解析错误" + e.getMessage());
+        }
     }
 
     @Test
