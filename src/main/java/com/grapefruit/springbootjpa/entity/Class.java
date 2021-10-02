@@ -33,8 +33,9 @@ public class Class {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int cId;
+    @Column(name = "id")
+    int id;
 
-    @Column(name = "c_name")
-    String cName;
+    @Column(name = "name")
+    String name;
 }

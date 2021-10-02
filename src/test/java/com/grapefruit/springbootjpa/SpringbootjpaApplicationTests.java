@@ -16,7 +16,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +45,51 @@ class SpringbootjpaApplicationTests {
         System.out.println();
     }
 
+    // 多对多查询
     @Test
+    void findAllStu() {
+        List<Student> List = stuRepo.findAll();
+        System.out.println();
+
+        List<Class> classes = classRepo.findAll();
+        System.out.println();
+    }
+
+    //多对多添加
+    @Test
+    void saveStu(){
+        Student stu = new Student();
+        stu.setAge(22);
+        stu.setName("ZZH");
+
+        List<Class> classs = new ArrayList<>();
+        Class c1 = new Class(1,"语文");
+        Class c2 = new Class(2,"数学");
+        Class c3 = new Class(3,"物理");
+        classs.add(c1);
+        classs.add(c2);
+        classs.add(c3);
+        stu.setClasss(classs);
+
+        stuRepo.save(stu);
+    }
+
+    // 多对多删除
+    @Test
+    void deleteStu(){
+        stuRepo.deleteAllById(33);
+    }
+
+    @Test
+    void deleteClass(){
+        classRepo.deleteAllById(Collections.singletonList(2));
+    }
+
+
+
+   /* @Test
     void contextLoads() {
-        Student s1 = Student.builder().name("aaa").age(2).classId(101).build();
+        Student s1 = Student.builder().name("aaa").age(2).classId("101").build();
 
         Class c1 = Class.builder().cName("class A7").build();
         Class c2 = Class.builder().cName("class B8").build();
@@ -54,18 +98,18 @@ class SpringbootjpaApplicationTests {
 
         //stuRepo.save(s1);
         classRepo.saveAll(list);
-    }
+    }*/
 
     @Transactional
     @Test
     void contextLoadsByEntityManager() {
-        Class c1 = Class.builder().cName("class G1=======").build();
-        Class c2 = Class.builder().cName("class G2").build();
-        Class c3 = Class.builder().cName("class G3").build();
-        Class c4 = Class.builder().cName("class G4").build();
-        Class c5 = Class.builder().cName("class G5").build();
-        Class c6 = Class.builder().cName("class G6").build();
-        Class c7 = Class.builder().cName("class G7").build();
+        Class c1 = Class.builder().name("class G1=======").build();
+        Class c2 = Class.builder().name("class G2").build();
+        Class c3 = Class.builder().name("class G3").build();
+        Class c4 = Class.builder().name("class G4").build();
+        Class c5 = Class.builder().name("class G5").build();
+        Class c6 = Class.builder().name("class G6").build();
+        Class c7 = Class.builder().name("class G7").build();
         List<Class> list = Arrays.asList(c1, c2, c3, c4, c5, c6, c7);
 
         Iterator<Class> iterator = list.iterator();
@@ -88,13 +132,13 @@ class SpringbootjpaApplicationTests {
     @Transactional
     @Test
     void batchSaveWithJDBC() {
-        Class c1 = Class.builder().cName("class G1=======").build();
-        Class c2 = Class.builder().cName("class G2").build();
-        Class c3 = Class.builder().cName("class G3").build();
-        Class c4 = Class.builder().cName("class G4").build();
-        Class c5 = Class.builder().cName("class G5").build();
-        Class c6 = Class.builder().cName("class G6").build();
-        Class c7 = Class.builder().cName("class G7").build();
+        Class c1 = Class.builder().name("class G1=======").build();
+        Class c2 = Class.builder().name("class G2").build();
+        Class c3 = Class.builder().name("class G3").build();
+        Class c4 = Class.builder().name("class G4").build();
+        Class c5 = Class.builder().name("class G5").build();
+        Class c6 = Class.builder().name("class G6").build();
+        Class c7 = Class.builder().name("class G7").build();
         List<Class> list = Arrays.asList(c1, c2, c3, c4, c5, c6, c7);
 
         StringBuilder insert = new StringBuilder("INSERT INTO `t_class` (`c_name`) VALUES ");
@@ -102,7 +146,7 @@ class SpringbootjpaApplicationTests {
         for (int i = 0; i < list.size(); i++) {
             insert.append("(")
                     .append("'")
-                    .append(list.get(i).getCName())
+                    .append(list.get(i).getName())
                     .append("'")
                     .append(")");
             if (i < list.size() - 1) {
@@ -118,13 +162,13 @@ class SpringbootjpaApplicationTests {
         }
     }
 
-    @Test
+   /* @Test
     void batchSave() {
         for (int i = 6; i < 20; i++) {
-            Student s1 = Student.builder().name("aaa").age(i).classId(100 + i).build();
+            Student s1 = Student.builder().name("aaa").age(i).classId("100" + i).build();
             stuRepo.save(s1);
         }
-    }
+    }*/
 
     @Test
     void findByName() {
