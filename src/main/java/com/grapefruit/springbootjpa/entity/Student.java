@@ -6,8 +6,9 @@ package com.grapefruit.springbootjpa.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +31,8 @@ import java.util.List;
  */
 @Table(name = "t_student")
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -48,13 +50,19 @@ public class Student {
     @JoinTable(name = "t_student_class",
             joinColumns = {@JoinColumn(name = "s_id",referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "c_id",referencedColumnName = "id")})
-    private List<Class> classs;
+    private List<Class> classList;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "age")
     private int age;
+
+    @Column(name = "favourite")
+    private String favourite;
+
+    @Column(name = "up_limit")
+    private String upLimit;
 
     public Student(String name, int age) {
         this.name = name;

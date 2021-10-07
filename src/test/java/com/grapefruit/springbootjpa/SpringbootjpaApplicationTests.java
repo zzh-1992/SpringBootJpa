@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -63,13 +62,21 @@ class SpringbootjpaApplicationTests {
         stu.setName("ZZH");
 
         List<Class> classs = new ArrayList<>();
-        Class c1 = new Class(1,"语文");
-        Class c2 = new Class(2,"数学");
-        Class c3 = new Class(3,"物理");
+        Class c1 = new Class(1);
+        Class c2 = new Class(2);
+        Class c3 = new Class(33);
         classs.add(c1);
         classs.add(c2);
         classs.add(c3);
-        stu.setClasss(classs);
+
+        // 定义偏好学科
+        String jsonString = JSON.toJSONString(classRepo.findAll());
+        stu.setFavourite(jsonString);
+
+        // 定义上限
+        stu.setUpLimit("100");
+
+        stu.setClassList(classs);
 
         stuRepo.save(stu);
     }
@@ -77,12 +84,14 @@ class SpringbootjpaApplicationTests {
     // 多对多删除
     @Test
     void deleteStu(){
-        stuRepo.deleteAllById(33);
+        stuRepo.deleteAllById(38);
     }
 
+    // 多对多删除(删除班级后同时删除对应的学生)
     @Test
     void deleteClass(){
-        classRepo.deleteAllById(Collections.singletonList(2));
+        //classRepo.deleteAllById(Collections.singletonList(1));
+        classRepo.deleteAll();
     }
 
 
