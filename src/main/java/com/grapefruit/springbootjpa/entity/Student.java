@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,13 +30,14 @@ import java.util.List;
  * @version 1.0
  * @date 2021-09-05 10:35 上午
  */
-@Table(name = "t_student")
 @Entity
+@Table(name = "t_student",schema = "jpa")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@DynamicUpdate()
 public class Student {
 
     @Id()
@@ -56,7 +58,7 @@ public class Student {
     private String name;
 
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
     @Column(name = "favourite")
     private String favourite;
